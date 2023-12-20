@@ -1,5 +1,4 @@
-install docker 
-
+                                                    install docker 
   
 sudo apt update
 
@@ -15,15 +14,15 @@ sudo apt install docker-ce
 
 sudo systemctl status docker
 
-_______________________________________________________________________________
+_____________________________________________________________________________________________________________________________________________
 
-install minikube 
+                                                     install minikube 
 
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-_______________________________________________________________________________
-
+_____________________________________________________________________________________________________________________________________________
+                                                     install kind
 
 sudo apt install -y golang
 
