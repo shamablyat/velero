@@ -96,3 +96,14 @@ velero restore describe default-namespace-backup
 
 #logs 
 velero restore logs default-namespace-backup
+
+___________________________________________________________________
+install postgres
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm install mypostgres bitnami/postgresql --set volumePermissions.enabled=true
+
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace default mypostgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+
+PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
