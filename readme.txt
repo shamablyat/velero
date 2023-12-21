@@ -102,7 +102,7 @@ install postgres
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
-helm install mypostgres bitnami/postgresql --set volumePermissions.enabled=true
+helm install mypostgres bitnami/postgresql --set persistence.existingClaim=postgresql-pv-claim --set volumePermissions.enabled=true
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace default mypostgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
