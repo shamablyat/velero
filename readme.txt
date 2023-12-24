@@ -1,4 +1,4 @@
-set up azure
+                                                    set up azure
 
 AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8s
 AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8s
@@ -26,14 +26,14 @@ az storage container create -n $BLOB_CONTAINER \
   --account-key $AZURE_STORAGE_ACCOUNT_ACCESS_KEY
 
 
-_____________________________________________________________________
+____________________________________________________________________________________________________________________________________________
+                                                    if u are using kind 
 
-if u are using kind 
 
 kind create cluster --name velero --image kindest/node:v1.19.1
 
-_____________________________________________________________________
-
+____________________________________________________________________________________________________________________________________________
+                                                    install kubectl
 
 # install curl & kubectl
 apk add --no-cache curl nano
@@ -42,8 +42,9 @@ chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 export KUBE_EDITOR="nano"
 
-_____________________________________________________________________
-install velero 
+____________________________________________________________________________________________________________________________________________
+                                                    install velero 
+
 
 curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.5.1/velero-v1.5.1-linux-amd64.tar.gz 
 tar -C /tmp -xvf /tmp/velero.tar.gz
@@ -52,9 +53,9 @@ chmod +x /usr/local/bin/velero
 
 velero --help
 
-_____________________________________________________________________
+____________________________________________________________________________________________________________________________________________
+                                                    install velero for azure
 
-install velero for azure
 
 # Azure credential file
 cat << EOF  > /tmp/credentials-velero
@@ -75,9 +76,30 @@ velero install \
 kubectl -n velero get pods
 kubectl logs deployment/velero -n velero
 
-___________________________________________________________________
 
-back up
+____________________________________________________________________________________________________________________________________________
+                                                    create azure storage location for velero
+
+
+# nano storageLocation.yaml
+
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: default
+  namespace: default
+spec:
+  backupSyncPeriod: 2m0s
+  provider: azure
+  objectStorage:
+    bucket: myBucket
+  config:
+    region: us-west-2
+    profile: "default"
+
+____________________________________________________________________________________________________________________________________________
+                                                    back up
+
 
 velero backup create default-namespace-backup --include-namespaces default
 
@@ -87,8 +109,9 @@ velero backup describe default-namespace-backup
 # logs
 velero backup logs default-namespace-backup
 
-___________________________________________________________________
-restore 
+____________________________________________________________________________________________________________________________________________
+                                                    restore 
+
 
 velero restore create default-namespace-backup --from-backup default-namespace-backup
 
@@ -98,8 +121,9 @@ velero restore describe default-namespace-backup
 #logs 
 velero restore logs default-namespace-backup
 
-___________________________________________________________________
-install postgres
+____________________________________________________________________________________________________________________________________________
+                                                    install postgres
+
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
