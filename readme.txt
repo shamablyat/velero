@@ -98,6 +98,19 @@ spec:
     profile: "default"
 
 ____________________________________________________________________________________________________________________________________________
+                                                    create mVolumeSnapshotLocation for azure 
+# nano volumeSnapshotLocation.yaml
+apiVersion: velero.io/v1
+kind: VolumeSnapshotLocation
+metadata:
+  name: azure-default
+  namespace: velero
+spec:
+  provider: azure
+  config:
+    region: us-west-2
+    profile: "default"
+____________________________________________________________________________________________________________________________________________
                                                     back up
 
 
