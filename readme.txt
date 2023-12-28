@@ -1,8 +1,8 @@
                                                     set up azure
 
-AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8s
-AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8s
-BLOB_CONTAINER=veleroshamak8s
+AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8svele
+AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8svele
+BLOB_CONTAINER=veleroshamak8svele
 AZURE_BACKUP_SUBSCRIPTION_ID=e29baf2f-c5e3-4359-a840-7258715c35ff
 
 # set subscription
