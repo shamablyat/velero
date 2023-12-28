@@ -63,15 +63,15 @@ AZURE_STORAGE_ACCOUNT_ACCESS_KEY=${AZURE_STORAGE_ACCOUNT_ACCESS_KEY}
 AZURE_CLOUD_NAME=AzurePublicCloud
 EOF
 
-velero install \
+./velero install \
     --provider azure \
     --plugins velero/velero-plugin-for-microsoft-azure:v1.1.0 \
     --bucket $BLOB_CONTAINER \
     --features=EnableCSI \
-    --use-restic \
+    --use-restic=true \
     --secret-file /tmp/credentials-velero \
     --backup-location-config resourceGroup=$AZURE_BACKUP_RESOURCE_GROUP,storageAccount=$AZURE_STORAGE_ACCOUNT_NAME,storageAccountKeyEnvVar=AZURE_STORAGE_ACCOUNT_ACCESS_KEY,subscriptionId=$AZURE_BACKUP_SUBSCRIPTION_ID \
-    --use-volume-snapshots=true
+    --use-volume-snapshots=false
 
 
 kubectl -n velero get pods
