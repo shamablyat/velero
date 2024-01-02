@@ -1,8 +1,8 @@
                                                     set up azure
 
-AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8svele
-AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8svele
-BLOB_CONTAINER=veleroshamak8svele
+AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8svelese
+AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8svelese
+BLOB_CONTAINER=veleroshamak8svelese
 AZURE_BACKUP_SUBSCRIPTION_ID=e29baf2f-c5e3-4359-a840-7258715c35ff
 
 # set subscription
@@ -110,29 +110,40 @@ spec:
   config:
     region: us-west-2
     profile: "default"
+
+____________________________________________________________________________________________________________________________________________
+                                                    annotate pod
+
+kubectl annotate pod/postgres-deployment-7964496dc4-dt7zl backup.velero.io/backup-volumes-excludes=data
+
+
 ____________________________________________________________________________________________________________________________________________
                                                     back up
 
 
-velero backup create default-namespace-backup --include-namespaces default
+
+kubectl annotate pod/postgres-deployment-7964496dc4-dt7zl backup.velero.io/backup-volumes-excludes=data
+
+
+velero backup create harbor-backup12 --include-namespaces default --default-volumes-to-restic --wait
 
 # describe
-velero backup describe default-namespace-backup
+velero backup describe harbor-backup12
 
 # logs
-velero backup logs default-namespace-backup
+velero backup logs harbor-backup12
 
 ____________________________________________________________________________________________________________________________________________
                                                     restore 
 
 
-velero restore create default-namespace-backup --from-backup default-namespace-backup
+velero restore create harbor-restore12 --from-backup harbor-backup12 --wait
 
 # describe
-velero restore describe default-namespace-backup
+velero restore describe harbor-restore12
 
 #logs 
-velero restore logs default-namespace-backup
+velero restore logs harbor-restore12
 
 ____________________________________________________________________________________________________________________________________________
                                                     install postgres
@@ -140,7 +151,7 @@ ________________________________________________________________________________
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
-helm install mypostgres bitnami/postgresql --set persistence.existingClaim=postgresql-pv-claim --set volumePermissions.enabled=true --set persistence.storageClass=azure-standard
+helm install mypostgres bitnami/postgresql --set volumePermissions.enabled=true
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace default mypostgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 
