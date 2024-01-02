@@ -1,9 +1,9 @@
                                                     set up azure
 
-AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8svelese
-AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8svelese
-BLOB_CONTAINER=veleroshamak8svelese
-AZURE_BACKUP_SUBSCRIPTION_ID=e29baf2f-c5e3-4359-a840-7258715c35ff
+AZURE_BACKUP_RESOURCE_GROUP=
+AZURE_STORAGE_ACCOUNT_NAME=
+BLOB_CONTAINER=
+AZURE_BACKUP_SUBSCRIPTION_ID=
 
 # set subscription
 az account set --subscription $AZURE_BACKUP_SUBSCRIPTION_ID
