@@ -1,9 +1,9 @@
                                                     set up azure
 
-AZURE_BACKUP_RESOURCE_GROUP=
-AZURE_STORAGE_ACCOUNT_NAME=
-BLOB_CONTAINER=
-AZURE_BACKUP_SUBSCRIPTION_ID=
+AZURE_BACKUP_RESOURCE_GROUP=veleroshamak8svelese
+AZURE_STORAGE_ACCOUNT_NAME=veleroshamak8svelese
+BLOB_CONTAINER=veleroshamak8svelese
+AZURE_BACKUP_SUBSCRIPTION_ID=e29baf2f-c5e3-4359-a840-7258715c35ff
 
 # set subscription
 az account set --subscription $AZURE_BACKUP_SUBSCRIPTION_ID
@@ -65,12 +65,12 @@ EOF
 
 ./velero install \
     --provider azure \
-    --plugins velero/velero-plugin-for-microsoft-azure:v1.1.0 \
+    --plugins velero/velero-plugin-for-microsoft-azure:v1.7.1, velero/velero-plugin-for-csi:v0.6.0\
     --bucket $BLOB_CONTAINER \
-    --use-restic=true \
+    --features=EnableCSI \
     --secret-file /tmp/credentials-velero \
     --backup-location-config resourceGroup=$AZURE_BACKUP_RESOURCE_GROUP,storageAccount=$AZURE_STORAGE_ACCOUNT_NAME,storageAccountKeyEnvVar=AZURE_STORAGE_ACCOUNT_ACCESS_KEY,subscriptionId=$AZURE_BACKUP_SUBSCRIPTION_ID \
-    --use-volume-snapshots=false
+    --use-volume-snapshots=true
 
 
 kubectl -n velero get pods
