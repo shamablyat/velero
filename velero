@@ -46,7 +46,7 @@ ________________________________________________________________________________
                                                     install velero 
 
 
-curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.5.1/velero-v1.5.1-linux-amd64.tar.gz 
+curl -L -o /tmp/velero.tar.gz https://github.com/vmware-tanzu/velero/releases/download/v1.12.2/velero-v1.12.2-linux-amd64.tar.gz 
 tar -C /tmp -xvf /tmp/velero.tar.gz
 mv /tmp/velero-v1.5.1-linux-amd64/velero /usr/local/bin/velero
 chmod +x /usr/local/bin/velero
