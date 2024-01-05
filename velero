@@ -65,7 +65,7 @@ EOF
 
 velero install \
     --provider azure \
-    --plugins velero/velero-plugin-for-microsoft-azure:v1.7.1, velero/velero-plugin-for-csi:v0.6.0\
+    --plugins velero/velero-plugin-for-microsoft-azure:v1.7.1 \
     --bucket $BLOB_CONTAINER \
     --use-node-agent=true \
     --secret-file /tmp/credentials-velero \
